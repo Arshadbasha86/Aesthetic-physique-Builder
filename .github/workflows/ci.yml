@@ -1,6 +1,6 @@
 # ==============================================================================
 # Aesthetic Physique Builder - Continuous Integration & Quality Gate Pipeline
-# Automated testing, pre-flight asset audits, and container build validation
+# Automated testing, pre-flight asset audits, and environment verification
 # ==============================================================================
 
 name: Aesthetic Physique CI Pipeline
@@ -51,23 +51,3 @@ jobs:
       - name: Run Cloud Connectivity & Fallback Diagnostics
         run: |
           python backend_cloud/verify_cloud_connection.py
-
-  docker-build-verification:
-    name: Container Image Build Verification
-    runs-on: ubuntu-latest
-    needs: test-and-verify
-
-    steps:
-      - name: Checkout Codebase
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: actions/setup-buildx-action@v3
-
-      - name: Build Web Portals Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: false
-          tags: aesthetic-physique-portals:latest

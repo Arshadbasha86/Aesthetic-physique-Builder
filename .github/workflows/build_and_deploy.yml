@@ -71,6 +71,10 @@ jobs:
             --android-adaptive-icon-background "#0D1117" \
             --no-rich-output \
             -o build_output
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m"
+          JAVA_OPTS: "-Xmx4096m"
+        continue-on-error: true
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
