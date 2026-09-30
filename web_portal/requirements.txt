@@ -1,0 +1,2 @@
+# Pure python dependencies for Pyodide WASM
+flet
