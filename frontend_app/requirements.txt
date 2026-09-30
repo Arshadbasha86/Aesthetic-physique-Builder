@@ -1,12 +1,9 @@
 # ==============================================================================
 # Aesthetic Physique Builder - Phase 1: Native Mobile Client (frontend_app)
-# Core Runtime Dependencies
+# Core Runtime Dependencies (Pure Python & Mobile Compatible)
 # ==============================================================================
 # Target Runtime: Python 3.11 / 3.12 LTS with Flet LTS
 flet==0.24.1
 
 # HTTP client for dynamic remote endpoint configuration and health checks
 httpx>=0.27.0
-
-# Local device text-to-speech fallback synthesizer engine
-pyttsx3>=2.90

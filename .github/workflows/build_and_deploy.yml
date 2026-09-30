@@ -66,6 +66,7 @@ jobs:
             --project aesthetic_physique \
             --product "Aesthetic Physique" \
             --org com.aestheticphysique \
+            --include-packages flet_audio \
             --build-version "1.2.0" \
             --build-number ${{ github.run_number }} \
             --android-adaptive-icon-background "#0D1117" \
