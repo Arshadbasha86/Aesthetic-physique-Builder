@@ -6,9 +6,25 @@ tabbed administration sub-navigation, and audit-logged dialog coordination.
 """
 
 import os
+import sys
+import types
 from pathlib import Path
 import flet as ft
 from typing import Dict, Any, Optional
+
+# Ensure both direct imports and package imports resolve in Pyodide/WASM and local dev
+CURRENT_DIR = Path(__file__).parent.resolve()
+if str(CURRENT_DIR) not in sys.path:
+    sys.path.insert(0, str(CURRENT_DIR))
+if str(CURRENT_DIR.parent) not in sys.path:
+    sys.path.insert(0, str(CURRENT_DIR.parent))
+
+try:
+    import web_portal
+except ImportError:
+    web_portal_pkg = types.ModuleType("web_portal")
+    web_portal_pkg.__path__ = [str(CURRENT_DIR)]
+    sys.modules["web_portal"] = web_portal_pkg
 
 from web_portal.portal_admin.admin_config import (
     ADMIN_NAV_TABS,

@@ -128,6 +128,7 @@ jobs:
             --assets assets \
             --distpath dist \
             --app-name "Aesthetic Physique Portals" \
+            --base-url "/Aesthetic-physique-Builder/" \
             --route-url-strategy hash
 
       - name: Deploy to GitHub Pages (gh-pages branch)
