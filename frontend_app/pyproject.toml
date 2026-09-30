@@ -1,0 +1,22 @@
+[project]
+name = "aesthetic-physique"
+version = "1.2.0"
+description = "Aesthetic Physique Builder Mobile Client"
+requires-python = ">=3.10"
+dependencies = [
+    "flet==0.24.1",
+    "httpx",
+]
+
+[tool.flet]
+org = "com.aestheticphysique"
+product = "Aesthetic Physique"
+company = "Aesthetic Physique"
+copyright = "Copyright (C) 2026 Aesthetic Physique"
+
+[tool.flet.icons]
+android = "assets/icon_foreground.png"
+
+[tool.flet.splash]
+color = "#0D1117"
+dark_color = "#0D1117"

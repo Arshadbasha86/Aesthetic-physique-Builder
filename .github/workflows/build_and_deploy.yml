@@ -1,6 +1,6 @@
 # ==============================================================================
 # Aesthetic Physique Builder - Automated Cloud APK Build & GitHub Pages Deploy
-# 1. Compiles Native Android Release APK using Flutter in GitHub Cloud
+# 1. Compiles Native Android Release APK using Official Flet Build Action
 # 2. Publishes & Deploys the Web Portal to GitHub Pages
 # ==============================================================================
 
@@ -29,48 +29,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Codebase
         uses: actions/checkout@v4
 
-      - name: Set up Java Development Kit (JDK 17)
-        uses: actions/setup-java@v4
+      - name: Build Android APK via Flet Action
+        id: build
+        uses: flet-dev/flet-build-action@v1
         with:
-          distribution: "temurin"
-          java-version: "17"
-
-      - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.24.x"
-          channel: "stable"
-          cache: true
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install Python & Flet Build CLI
-        run: |
-          python -m pip install --upgrade pip
-          pip install flet==0.24.1 httpx
-
-      - name: Build Standalone Android APK
-        run: |
-          flet build apk frontend_app \
-            --project "Aesthetic Physique" \
-            --product "Aesthetic Physique" \
-            --org "com.aestheticphysique" \
-            --build-version "1.2.0" \
-            --build-number 12 \
-            --android-adaptive-icon-background "#0D1117" \
-            -o build_output
+          target: apk
+          working-directory: frontend_app
+          build-version: "1.2.0"
+          build-number: ${{ github.run_number }}
+          archive-output: false
 
       - name: Upload APK as Downloadable Artifact
         uses: actions/upload-artifact@v4
         with:
           name: AestheticPhysique-v1.2.0-APK
-          path: build_output/apk/*.apk
+          path: ${{ steps.build.outputs.archive-path }}
           retention-days: 30
 
       - name: Create GitHub Release with APK
@@ -81,11 +57,11 @@ jobs:
           name: "Aesthetic Physique v1.2.0 Release"
           body: |
             ## Aesthetic Physique Builder — Mobile Release v1.2.0
-            - 52 Unilateral Exercise Routines (DAY-A through DAY-G)
+            - 52 Catalogued Unilateral Exercise Routines (DAY-A through DAY-G)
             - Non-Drift Wall-Clock Rest Engine with Audio Ducking
             - Offline-First SQLite WAL Mode & Recovery Ledgers
             - Official Classical Greek Statue Bust App Icon
-          files: build_output/apk/*.apk
+          files: ${{ steps.build.outputs.archive-path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -116,7 +92,7 @@ jobs:
       - name: Publish Web Portal as Static WASM Bundle
         run: |
           flet publish web_portal/main_web.py \
-            --assets web_portal/assets \
+            --assets assets \
             --distpath dist \
             --app-name "Aesthetic Physique Portals" \
             --route-url-strategy hash
