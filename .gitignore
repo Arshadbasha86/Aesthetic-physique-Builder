@@ -1,0 +1,67 @@
+# ==============================================================================
+# Aesthetic Physique Builder - Production Git Ignore Specification
+# ==============================================================================
+
+# 1. Environment Secrets & API Keys
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# 2. SQLite Database & Ephemeral WAL Files
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.db.lock
+frontend_app/database/*.db-wal
+frontend_app/database/*.db-shm
+
+# 3. Python Bytecode & Cache Directories
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# 4. Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 5. Mobile & Desktop Build Artifacts (Flet / Flutter)
+build/
+dist/
+*.apk
+*.aab
+*.exe
+*.dmg
+*.app
+frontend_app/build/
+web_portal/build/
+
+# 6. Operating System Noise
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# 7. IDE & Editor Metadata
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

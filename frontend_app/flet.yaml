@@ -1,0 +1,19 @@
+# Aesthetic Physique Mobile Client - Flet Android Build Manifest
+app:
+  name: "Aesthetic Physique"
+  package: "com.aestheticphysique.builder"
+  version: "1.2.0"
+  build_number: 12
+  description: "High-performance bodybuilding & hypertrophy training ecosystem with wall-clock rest audio."
+  author: "Aesthetic Physique Engineering"
+
+android:
+  permissions:
+    - "android.permission.INTERNET"
+    - "android.permission.ACCESS_NETWORK_STATE"
+    - "android.permission.VIBRATE"
+    - "android.permission.WAKE_LOCK"
+  screen_orientation: "portrait"
+  adaptive_icon:
+    foreground: "assets/icon_foreground.png"
+    background: "#0D1117"

@@ -1,0 +1,41 @@
+# ==============================================================================
+# Aesthetic Physique Builder - Docker Compose Deployment Specification
+# Orchestrates Web Portals (Athlete Companion & Operations Console)
+# ==============================================================================
+
+version: "3.8"
+
+services:
+  web-portal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aesthetic_physique_portal
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORTAL_PORT:-8550}:8550"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL:-https://your-project.supabase.co}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-sb_anon_mock_key_aesthetic_physique}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY:-sb_service_mock_key_aesthetic_physique}
+      - PORT=8550
+      - DEBUG_MODE=${DEBUG_MODE:-false}
+    volumes:
+      # Persistent local storage volume for offline SQLite ledger state and logs
+      - sqlite_data:/app/frontend_app/database
+    networks:
+      - aesthetic_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8550/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  sqlite_data:
+    driver: local
+
+networks:
+  aesthetic_net:
+    driver: bridge
