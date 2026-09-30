@@ -1,6 +1,7 @@
 # Aesthetic Physique Mobile Client - Flet Android Build Manifest
 app:
-  name: "Aesthetic Physique"
+  name: "aesthetic_physique"
+  product: "Aesthetic Physique"
   package: "com.aestheticphysique.builder"
   version: "1.2.0"
   build_number: 12
